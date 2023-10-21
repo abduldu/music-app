@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/6910f06ee8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fas fa-angle-left"></i> <!-- Corrected class name -->
+                </div>
+                <div class="circle">
+                    <i class="fas fa-bars"></i> <!-- Corrected class name -->
+                </div>
+            </nav>
+            <img src="https://www.simpleimageresizer.com/_uploads/photos/cf8c89b0/468-thumbnail_99.png" class="song-img">
+            <h1>serial killer vibe</h1>
+            <p>Recherd ramiras</p>
+            <audio id="song">
+                <source src="https://rr2---sn-2uja-3ipee.googlevideo.com/videoplayback?expire=1697929687&ei=dwU0ZYH-IYrSyAWAzqi4BA&ip=46.246.8.114&id=o-ACEsDEUU2gZdPC7vixJkXg1dNRiu4h4MKPYwimya7qem&itag=251&source=youtube&requiressl=yes&pcm2=no&spc=UWF9f3J4TZlEPIKovCw6xq_s2yUTLJI&vprv=1&svpuc=1&mime=audio%2Fwebm&gir=yes&clen=3716468&dur=225.401&lmt=1673808678502376&keepalive=yes&fexp=24007246,24350018&beids=24350018&c=ANDROID&txp=4532434&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cpcm2%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cgir%2Cclen%2Cdur%2Clmt&sig=AGM4YrMwRQIhAOwmDwnj5ry8S5WU5fz13mCphOerpgd-fKEpVlkL9nvGAiBNsiyZdJHoYS3fmzAB89dUq601qYa6j-KLT4nx6fu2vg%3D%3D&redirect_counter=1&rm=sn-5gold7z&req_id=2b49152b4fc3a3ee&cms_redirect=yes&cmsv=e&ipbypass=yes&mh=6J&mip=182.190.99.31&mm=31&mn=sn-2uja-3ipee&ms=au&mt=1697908501&mv=u&mvi=2&pl=17&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AK1ks_kwRAIgLrDWvspylOm5VeuVp6MliKeF3iIwtruPclIdxN7HV7kCIEVoQ9mLAmuuUP4gLluCAITbmuQuCKOBePBOanHudY59" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+            <div class="controls">
+                <div><i class="fas fa-backward"></i> <!-- Corrected class name -->
+                </div>
+                <div onclick="playPause()"><i class="fas fa-play" id="ctrlIcon"></i> <!-- Corrected class name -->
+                </div>
+                <div><i class="fas fa-forward"></i> <!-- Corrected class name -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+
+        song.onloadedmetadata = function() {
+            progress.max = song.duration;
+            progress.value = song.currentTime; // Corrected "vlaue" to "value"
+        }
+
+        function playPause() {
+            if (ctrlIcon.classList.contains("fa-pause")) {
+                song.pause();
+                ctrlIcon.classList.remove("fa-pause"); // Remove the "fa-pause" class
+                ctrlIcon.classList.add("fa-play");
+            } else {
+                song.play();
+                ctrlIcon.classList.remove("fa-play"); // Remove the "fa-play" class
+                ctrlIcon.classList.add("fa-pause");
+            }
+        }
+
+        song.addEventListener('timeupdate', function() {
+            progress.value = song.currentTime;
+        });
+
+        progress.oninput = function() { // Changed "onchange" to "oninput"
+            song.currentTime = progress.value;
+        }
+    </script>
+</body>
+</html>
